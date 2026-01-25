@@ -26,7 +26,8 @@
 
 ## 🏆 News
 
-- We release the code of PhysX-Anything and our new dataset PhysX-Mobility 🎉
+- We release the fine-tuning code of PhysX-Anything🎉
+- We release the inference code of PhysX-Anything and our new dataset PhysX-Mobility 🎉
 
 ## PhysX-Anything
 
@@ -62,6 +63,44 @@ conda create -n physx-anything python=3.10
 conda activate physx-anything
 pip install -r requirements.txt
 ```
+
+### Training
+
+1. Dataset download [PhysXNet](https://huggingface.co/datasets/Caoza/PhysX-3D) and [PhysX-Mobility](https://huggingface.co/datasets/Caoza/PhysX-Mobility)
+
+2. Run the preprocessing script. 
+
+   ```python
+   cd dataset
+   python 1voxel.py
+   python 2encode_representation_32_finetune.py
+   python 3generate_data_new_32_finetune.py
+   ```
+
+   **Note**: Here is a template for you to check the format: [template](https://github.com/ziangcao0312/PhysX-Anything/blob/main/dataset/training_data_template.json).
+
+3. Render the conditioning images (25 images per object) based on your requirements. We use [render_cond.py](https://github.com/microsoft/TRELLIS/blob/main/DATASET.md) to generate the conditioning images.
+
+4. Set the path in train [configuration](https://github.com/ziangcao0312/PhysX-Anything/blob/main/qwen-vl-finetune/qwenvl/data/__init__.py)
+
+   ```python
+   PHYSXNET = {
+       "annotation_path": "xx", #json file path
+       "data_path": "xx",  # conditioning image path
+   }
+   
+   PHYSXMOBILITY = {
+       "annotation_path": "xx", #json file path
+       "data_path": "xx",  # conditioning image path
+   }
+   ```
+
+5. Finetune the model
+
+   ```
+   cd qwen-vl-finetune
+   sbatch scripts/sft_7b.sh
+   ```
 
 ### Inference
 
