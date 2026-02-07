@@ -94,10 +94,9 @@ args = parser.parse_args()
 alldata=[]
 
 basepath='./tmp/'
-urdfscript_path=os.path.join(basepath,'urdf_script')
 voxel_path=os.path.join(basepath,'partseg')
 json_path=os.path.join(basepath,'finaljson')
-namelist=os.listdir(urdfscript_path)
+namelist=os.listdir('./txt_rep_32_finetune')
 namelist=namelist[args.ind*args.range:(args.ind+1)*args.range]
 alllength=[]
 tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-VL-7B-Instruct")

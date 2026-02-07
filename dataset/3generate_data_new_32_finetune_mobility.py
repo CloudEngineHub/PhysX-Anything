@@ -93,7 +93,6 @@ args = parser.parse_args()
 alldata=[]
 
 basepath='./tmp_mobility'
-urdfscript_path=os.path.join(basepath,'urdf_script')
 voxel_path=os.path.join(basepath,'partseg')
 json_path=os.path.join(basepath,'finaljson')
 namelist=os.listdir('./txt_rep_32_finetune_mobility_all')
